@@ -229,13 +229,19 @@
     <Compile Include="Migrations\201807020453595_A1.Designer.cs">
       <DependentUpon>201807020453595_A1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807181559023_OrderList_OrderStatus_Customer_Added.cs" />
+    <Compile Include="Migrations\201807181559023_OrderList_OrderStatus_Customer_Added.Designer.cs">
+      <DependentUpon>201807181559023_OrderList_OrderStatus_Customer_Added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Enums\ProjectEnums.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderList.cs" />
     <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\StockIn.cs" />
@@ -1359,6 +1365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807020453595_A1.resx">
       <DependentUpon>201807020453595_A1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807181559023_OrderList_OrderStatus_Customer_Added.resx">
+      <DependentUpon>201807181559023_OrderList_OrderStatus_Customer_Added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
