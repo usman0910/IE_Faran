@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using ThemeEmbeding.Models;
 
 namespace ThemeEmbeding.Controllers
 {
@@ -16,6 +16,30 @@ namespace ThemeEmbeding.Controllers
         public ActionResult Products()
         {
             return View();
+        }
+        [HttpPost]
+        public JsonResult ImageUpload(HttpPostedFileWrapper ImageFile)
+        {
+            ApplicationDbContext Db = new ApplicationDbContext();
+            Guid SaveImageNameAs;
+            SaveImageNameAs = Guid.NewGuid();
+            var file = ImageFile;
+
+            if (file != null)
+            {
+
+                var fileName = Path.GetFileName(file.FileName);
+                var extention = Path.GetExtension(file.FileName);
+                var filenamewithoutextension = Path.GetFileNameWithoutExtension(file.FileName);
+
+                file.SaveAs(Server.MapPath("/UploadedImage/" + SaveImageNameAs + extention));
+
+            }
+
+            Helper.ProductExtension.ImageName = SaveImageNameAs.ToString();
+
+            return Json(SaveImageNameAs.ToString(), JsonRequestBehavior.AllowGet);
+
         }
 
         public ActionResult Categories()

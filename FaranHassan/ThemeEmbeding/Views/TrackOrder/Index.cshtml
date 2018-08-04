@@ -1,0 +1,61 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Track Your Order</title>
+    @*@Styles.Render("~/Content/Commoncss")*@
+    @Styles.Render("~/Content/ShopCSS")
+</head>
+<body style="background-color:#18d26e">
+    <div class="row">
+        <div class="col-md-4">
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li><a href="/Main/Index"><img src="~/Main/img/left.png" height="90" width="120" /></a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-4" style="text-align:center"> <img src="~/Main/img/TrackYourOrder.png" /></div>
+        <div class="col-md-4"></div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="input-group">
+                <span class="input-group-addon" style="background-color:#feca1f"><span class="input-icon input-icon-email"></span><span class="input-text">Email*</span></span>
+                <input type="text" required="" class="form-control input-lg" placeholder="Your Email">
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="input-group">
+                <span class="input-group-addon" style="background-color:#feca1f"><span class="input-icon input-icon-address"></span><span class="input-text">Tracking Id*</span></span>
+                <input type="text" required="" class="form-control input-lg" placeholder="Your Order Tracking Id">
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-default col-md-12" style="background-color:#feca1f;color:#7bae23; font-size:medium;font-weight:bold">Track Order</button>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</body>
+</html>

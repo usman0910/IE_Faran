@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace ThemeEmbeding
 {
@@ -98,6 +97,45 @@ namespace ThemeEmbeding
                         "~/Common/Css/bootstrap.min.css"
                       ));
 
+
+            #endregion
+
+            #region Shop
+
+            bundles.Add(new ScriptBundle("~/bundles/ShopJS").Include(
+                "~/Scripts/angular-animate.min.js",
+                "~/Scripts/angular-aria.min.js",
+                "~/Scripts/angular-material.min.js",
+                "~/Shop/js/smoothscroll.js",
+                "~/Shop/js/jquery.debouncedresize.js",
+                "~/Shop/js/retina.min.js",
+                "~/Shop/js/jquery.placeholder.js",
+                "~/Shop/js/jquery.hoverIntent.min.js",
+                "~/Shop/js/twitter/jquery.tweet.min.js",
+                "~/Shop/js/jquery.flexslider-min.js",
+                "~/Shop/js/owl.carousel.min.js",
+                "~/Shop/js/jflickrfeed.min.js",
+                "~/Shop/js/jquery.prettyPhoto.js",
+                "~/Shop/js/jquery.nouislider.min.js",
+                "~/Shop/js/colpick.js",
+                "~/Shop/js/jquery.jscrollpane.min.js",
+                "~/Shop/js/jquery.mousewheel.js",
+                "~/Shop/js/main.js"
+                ));
+
+
+            bundles.Add(new StyleBundle("~/Content/ShopCSS").Include(
+                "~/Shop/css/bootstrap.min.css",
+                "~/Shop/css/font-awesome.min.css",
+                "~/Shop/css/prettyPhoto.css",
+                "~/Shop/css/colpick.css",
+                "~/Shop/css/owl.carousel.css",
+                "~/Shop/css/style.css",
+                "~/Shop/css/responsive.css",
+                "~/Shop/images/icons/icon.html",
+                "~/Shop/images/icons/apple-icon-57x57.html",
+                "~/Shop/images/icons/apple-icon-72x72.html"
+                ));
 
             #endregion
         }

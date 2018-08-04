@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ThemeEmbeding.Models
 {
@@ -23,10 +19,11 @@ namespace ThemeEmbeding.Models
         public float Width { get; set; }
 
         public string Description { get; set; }
+        public string Image { get; set; }
 
         public float Height { get; set; }
-
         public long TotalQuantity { get; set; }
+
 
     }
 }

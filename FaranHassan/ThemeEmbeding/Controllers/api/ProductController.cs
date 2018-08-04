@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using ThemeEmbeding.Models;
@@ -24,19 +20,21 @@ namespace ThemeEmbeding.Controllers.api
             var data = await Db.Products.Include(e => e.Categories).ToListAsync();
             return Ok(data);
         }
-        
+
         [HttpGet]
         async public Task<IHttpActionResult> ViewAllCategoryProducts(int Id)
         {
-
             return Ok(await Db.Products.Where(e => e.CategoryId == Id).Include(e => e.Categories).ToListAsync());
         }
 
         [HttpPost]
         async public Task<IHttpActionResult> New(Products product)
         {
+
+            product.Image = Helper.ProductExtension.ImageName;
             Db.Products.Add(product);
             await Db.SaveChangesAsync();
+            Helper.ProductExtension.ImageName = "";
             return Ok();
         }
 

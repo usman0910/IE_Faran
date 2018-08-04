@@ -87,6 +87,30 @@
                                     <input ng-model="PHeight">
                                 </md-input-container>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-body" style="min-height:256px">
+
+
+                                        <div class="btn btn-primary col-md-12">
+                                            <input type="file" id="imageBrowes" />
+                                        </div>
+                                        <hr />
+
+                                        <div id="imgPreview" class="thumbnail" style="display:none">
+                                            <img class="img-responsive" id="targetImg" />
+                                            <div class="caption">
+                                                <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                                                <span id="description"></span>
+                                            </div>
+                                            <a href="#" class="btn btn-default" onclick="Uploadimage()">Upload</a>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
 
                             <div class="row" style="text-align:center;padding-bottom:10px">
                                 <md-button ng-disabled="MyForm.$invalid" ng-click="save()" class="md-raised md-primary">Add Category</md-button>
@@ -261,40 +285,102 @@
             });
         };
 
-
         $scope.save = function () {
+
+            var file = $("#imageBrowes").get(0).files;
+
+            var data = new FormData;
+            data.append("ImageFile", file[0]);
+
+           
 
 
             $http({
-                url: '/api/Product/New',
+                url: '/Admin/ImageUpload',
                 method: 'POST',
-                data: {
+                data: data,
+                headers: {
+                    'Content-Type': undefined
+                }
+
+
+            }).then(function () {
+
+                var product = {
                     Name: $scope.PName,
                     Brand: $scope.PBrand,
                     Description: $scope.PDescription,
                     CategoryId: $scope.category.Id,
                     Weight: $scope.PWeight,
                     Length: $scope.PLength,
-                    Width: + $scope.PWidth,
+                    Width: $scope.PWidth,
                     Height: $scope.PHeight
 
                 }
 
-            }).then(function () {
 
-                $scope.PName = "";
-                $scope.PBrand = "";
-                $scope.PDescription = "";
-                $scope.PWeight = "";
-                $scope.PLength = "";
-                $scope.PWidth = "";
-                $scope.PHeight = "";
-                $scope.category.Id = undefined;
+                $http({
+                    url: '/api/Product/New',
+                    method: 'POST',
+                    data: product
 
-                $('#products').DataTable().ajax.reload();
 
+                }).then(function () {
+                    $scope.PName = "";
+                    $scope.PBrand = "";
+                    $scope.PDescription = "";
+                    $scope.PWeight = "";
+                    $scope.PLength = "";
+                    $scope.PWidth = "";
+                    $scope.PHeight = "";
+                    $scope.category.Id = undefined;
+
+                    $('#products').DataTable().ajax.reload();
+
+                });
+
+                
             });
+
+
+
+
         };
+
+
+        //$scope.save = function () {
+
+
+        //    $http({
+        //        url: '/api/Product/New',
+        //        method: 'POST',
+        //        data: {
+        //            Name: $scope.PName,
+        //            Brand: $scope.PBrand,
+        //            Description: $scope.PDescription,
+        //            CategoryId: $scope.category.Id,
+        //            Weight: $scope.PWeight,
+        //            Length: $scope.PLength,
+        //            Width: + $scope.PWidth,
+        //            Height: $scope.PHeight
+
+        //        }
+
+        //    }).then(function () {
+
+        //        $scope.PName = "";
+        //        $scope.PBrand = "";
+        //        $scope.PDescription = "";
+        //        $scope.PWeight = "";
+        //        $scope.PLength = "";
+        //        $scope.PWidth = "";
+        //        $scope.PHeight = "";
+        //        $scope.category.Id = undefined;
+
+        //        $('#products').DataTable().ajax.reload();
+
+        //    });
+        //};
 
 
 
@@ -311,6 +397,79 @@
 
     });
 
+    ///////////////////////////////////////////////////////////////////////
+
+    $(document).ready(function () {
+
+        $("#imageBrowes").change(function () {
+
+            var File = this.files;
+
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+
+        })
+
+    })
+
+
+    var ReadImage = function (file) {
+
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+
+                $("#targetImg").attr('src', _file.target.result);
+                $("#description").text("Size:" + size + ", " + height + "X " + width + ", " + type + "");
+                $("#imgPreview").show();
+
+            }
+
+        }
+
+    }
+
+    var ClearPreview = function () {
+        $("#imageBrowes").val('');
+        $("#description").text('');
+        $("#imgPreview").hide();
+
+    }
+
+    //var Uploadimage = function () {
+
+    //    var file = $("#imageBrowes").get(0).files;
+
+    //    var data = new FormData;
+    //    data.append("ImageFile", file[0]);
+
+    //    $.ajax({
+
+    //        type: "Post",
+    //        url: "/Admin/ImageUpload",
+    //        data: data,
+    //        contentType: false,
+    //        processData: false,
+    //        success: function (response) {
+
+
+
+    //        }
+
+    //    })
+    //}
 
 </script>
+
 
