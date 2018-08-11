@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "Brands";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div ng-app="MyApp" ng-controller="AppCtrl" class="main-content form-horizontal" role="form">
+
+    <div class="box">
+        <div style="background-color:#b8c7ce" class="box-header with-border">
+            <h3 class="box-title">Brands</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                        title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="col-md-4">
+                <div style="box-shadow:0 0px 11px rgba(0,0,0,0.3)" class="box">
+                    <div style="background-color:#b8c7ce" class="box-header with-border">
+                        <h3 class="box-title">Add New Brand</h3>
+                    </div>
+                    <div class="box-body">
+                        <form name="MyForm">
+                            <div>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label style="text-align:center">Brand Name</label>
+                                    <input required ng-model="BName">
+                                </md-input-container>
+                                <div class="row" style="text-align:center;padding-bottom:10px">
+                                    <md-button ng-disabled="MyForm.$invalid" ng-click="save()" class="md-raised md-primary">Add Brand</md-button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.box-body -->
+                    <div style="background-color:#b8c7ce" class="box-footer"></div>
+                    <!-- /.box-footer-->
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-6">
+                <div style="box-shadow:0 0px 11px rgba(0,0,0,0.3)" class="box">
+                    <div style="background-color:#b8c7ce" class="box-header with-border">
+                        <h3 class="box-title">All Brands</h3>
+                    </div>
+                    <div class="box-body">
+                        <div>
+                            <table id="brands" class="table table-bordered table-responsive table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Brand Name
+                                        </th>
+                                        <th>
+                                            Delete
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div style="background-color:#b8c7ce" class="box-footer"></div>
+                    <!-- /.box-footer-->
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <!-- /.box-body -->
+        <div style="background-color:#b8c7ce" class="box-footer"></div>
+        <!-- /.box-footer-->
+    </div>
+
+    <div class="modal modal-danger fade" id="modal-danger">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Delete ?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to Delete this Brand ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">CLOSE</button>
+                    <button id="proceed" type="button" class="btn btn-outline" data-dismiss="modal">PROCEED TO DELETE</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+</div>
+
+
+<script>
+
+    var AppMode = angular.module("MyApp", ['ngMaterial']);
+
+    AppMode.controller("AppCtrl", function ($scope, $http, $mdDialog) {
+
+
+        $("#brands").DataTable({
+            ajax: {
+                url: "/api/Brand/ViewAll",
+                dataSrc: ""
+            },
+            columns: [
+
+                {
+                    data: "Name"
+                },
+                {
+                    data: "Id",
+                    render: function (data, type, Wholedata) {
+                        //return "<a ng-click='delete()' class='btn btn-dander'  >Remove</a>";
+                        return "<md-button type='button' id=" + data + " data-toggle='modal' data-target='#modal-danger' class='btn btn-danger'  >Remove</md-button>";
+                    }
+                }
+            ]
+        });
+
+
+        $('#brands tbody').on('click', 'md-button', function () {
+            $scope.Gac = this.id;
+        });
+        $("#proceed").on('click', function () {
+            $scope.delete($scope.Gac);
+
+        });
+        $scope.save = function () {
+
+
+            $http({
+                url: '/api/Brand/New',
+                method: 'POST',
+                data: {
+                    Name: $scope.BName
+
+                }
+
+            }).then(function () {
+
+                $scope.BName = undefined;
+                $('#brands').DataTable().ajax.reload();
+
+            });
+        };
+
+
+
+        $scope.delete = function (d) {
+            $http.delete('/api/Brand/' + d).then(function () {
+
+                $('#brands').DataTable().ajax.reload();
+            });
+
+        };
+
+
+    });
+
+
+
+
+</script>
+

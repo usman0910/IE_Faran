@@ -13,6 +13,7 @@ namespace ThemeEmbeding.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<Brands> Brands { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

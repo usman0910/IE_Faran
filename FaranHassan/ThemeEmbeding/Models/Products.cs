@@ -10,7 +10,9 @@ namespace ThemeEmbeding.Models
         [ForeignKey("Categories")]
         public int CategoryId { get; set; }
 
-        public string Brand { get; set; }
+        public Brands Brands { get; set; }
+        [ForeignKey("Brands")]
+        public int BrandId { get; set; }
 
         public float Weight { get; set; }
 
@@ -19,6 +21,15 @@ namespace ThemeEmbeding.Models
         public float Width { get; set; }
 
         public string Description { get; set; }
+
+        public string OverView { get; set; }
+
+        public string AdditionalInfo { get; set; }
+
+        public string VideoLink { get; set; }
+
+        public long Price { get; set; }
+
         public string Image { get; set; }
 
         public float Height { get; set; }

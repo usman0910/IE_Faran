@@ -2,7 +2,6 @@
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
-using ThemeEmbeding.Models;
 
 namespace ThemeEmbeding.Controllers
 {
@@ -18,9 +17,9 @@ namespace ThemeEmbeding.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult ImageUpload(HttpPostedFileWrapper ImageFile)
+        public string ImageUpload(HttpPostedFileWrapper ImageFile)
         {
-            ApplicationDbContext Db = new ApplicationDbContext();
+
             Guid SaveImageNameAs;
             SaveImageNameAs = Guid.NewGuid();
             var file = ImageFile;
@@ -38,11 +37,18 @@ namespace ThemeEmbeding.Controllers
 
             Helper.ProductExtension.ImageName = SaveImageNameAs.ToString();
 
-            return Json(SaveImageNameAs.ToString(), JsonRequestBehavior.AllowGet);
+            //Json(SaveImageNameAs.ToString(), JsonRequestBehavior.AllowGet)
+
+            return "Test Completed";
 
         }
 
         public ActionResult Categories()
+        {
+            return View();
+        }
+
+        public ActionResult Brands()
         {
             return View();
         }
