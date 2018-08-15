@@ -2048,8 +2048,7 @@
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Views\Admin\Stocks.cshtml" />
-    <Content Include="Views\Admin\Orders.cshtml" />
-    <Content Include="Views\Admin\Deliveries.cshtml" />
+    <Content Include="Views\Admin\NewOrders.cshtml" />
     <Content Include="Views\Shared\_LayoutShop.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Shop\fonts\fontawesome-webfont862f.eot" />
@@ -2135,8 +2134,9 @@
     <Content Include="Views\Shop\Checkout.cshtml" />
     <Content Include="Views\Shop\ProductDetail.cshtml" />
     <Content Include="Views\TrackOrder\Index.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Admin\Brands.cshtml" />
+    <Content Include="Views\Admin\InProgressOrders.cshtml" />
+    <Content Include="Views\Admin\CompletedOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201808011621442_init.resx">

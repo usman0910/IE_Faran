@@ -88,8 +88,9 @@
 
     AppMode.controller("AppCtrl", function ($scope, $http) {
 
+        $scope.proId = location.pathname.split("/").pop();
         $http({
-            url: '/api/ProductDetail/17',
+            url: '/api/ProductDetail/' + $scope.proId,
             method: 'GET'
 
         }).then(function (resp) {

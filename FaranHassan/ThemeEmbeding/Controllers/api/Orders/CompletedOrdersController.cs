@@ -1,7 +1,10 @@
-﻿using System.Data.Entity;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using ThemeEmbeding.Locals;
 using ThemeEmbeding.Models;
 
 namespace ThemeEmbeding.Controllers.api.Orders
@@ -18,7 +21,27 @@ namespace ThemeEmbeding.Controllers.api.Orders
         async public Task<IHttpActionResult> ViewAll()
         {
             var data = await Db.Orders.Where(e => e.OrderStatusId == 5).ToListAsync();
-            return Ok(data);
+
+
+            var CompletedOrders = new List<NewOrders>();
+
+            var dataDeSerilized = new List<Products>();
+            foreach (var item in data)
+            {
+                dataDeSerilized = JsonConvert.DeserializeObject<List<Products>>(item.CartDetails);
+
+                var order = new NewOrders()
+                {
+                    CustomerId = item.CustomerId,
+                    Date = item.Date,
+                    Products = dataDeSerilized,
+                    OrderStatusId = item.OrderStatusId
+
+                };
+                CompletedOrders.Add(order);
+            }
+
+            return Ok(CompletedOrders);
         }
     }
 }

@@ -57,12 +57,16 @@ namespace ThemeEmbeding.Controllers
             return View();
         }
 
-        public ActionResult Orders()
+        public ActionResult NewOrders()
         {
             return View();
         }
 
-        public ActionResult Deliveries()
+        public ActionResult InProgressOrders()
+        {
+            return View();
+        }
+        public ActionResult CompletedOrders()
         {
             return View();
         }

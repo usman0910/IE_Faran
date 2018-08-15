@@ -21,7 +21,6 @@
                                 <tr>
                                     <th class="table-title">Product Name</th>
                                     <th class="table-title">Unit Price</th>
-                                    <th class="table-title">Quantity</th>
                                     <th class="table-title">SubTotal</th>
                                 </tr>
                             </thead>
@@ -37,11 +36,6 @@
                                             </ul>*@
                                     </td>
                                     <td class="item-price-col"><span class="item-price-special">Rs {{product.Price}}</span></td>
-                                    <td>
-                                        <div class="custom-quantity-input">
-                                            <input type="text" name="quantity" value="1"> <a href="#" onclick="return!1" class="quantity-btn quantity-input-up"><i class="fa fa-angle-up"></i></a> <a href="#" onclick="return!1" class="quantity-btn quantity-input-down"><i class="fa fa-angle-down"></i></a>
-                                        </div>
-                                    </td>
                                     <td class="item-total-col">
                                         <span class="item-price-special">Rs {{product.Price}}</span>
                                         <a ng-click="RemoveProduct(product.Id)" class="close-button"></a>

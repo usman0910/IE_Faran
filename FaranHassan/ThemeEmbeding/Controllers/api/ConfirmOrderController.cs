@@ -40,6 +40,8 @@ namespace ThemeEmbeding.Controllers.api
 
             await Db.SaveChangesAsync();
 
+            LocalCart.LocalProducts.Clear();
+
             return Ok();
         }
     }
