@@ -201,9 +201,18 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\api\AddToCartController.cs" />
     <Compile Include="Controllers\api\BrandController.cs" />
+    <Compile Include="Controllers\api\CartController.cs" />
     <Compile Include="Controllers\api\CategoryController.cs" />
+    <Compile Include="Controllers\api\ConfirmOrderController.cs" />
+    <Compile Include="Controllers\api\Orders\CompletedOrdersController.cs" />
+    <Compile Include="Controllers\api\Orders\InProgressOrdersController.cs" />
+    <Compile Include="Controllers\api\Orders\NewOrdersController.cs" />
     <Compile Include="Controllers\api\ProductController.cs" />
+    <Compile Include="Controllers\api\ProductDetailController.cs" />
+    <Compile Include="Controllers\api\ProductsWithBrandsController.cs" />
+    <Compile Include="Controllers\api\RemoveFromCartController.cs" />
     <Compile Include="Controllers\api\StockController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -213,6 +222,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ProductExtension.cs" />
+    <Compile Include="Locals\NewOrders.cs" />
     <Compile Include="Migrations\201808011621442_init.cs" />
     <Compile Include="Migrations\201808011621442_init.Designer.cs">
       <DependentUpon>201808011621442_init.cs</DependentUpon>
@@ -229,6 +239,22 @@
     <Compile Include="Migrations\201808111023353_BrandRelationaDDED.Designer.cs">
       <DependentUpon>201808111023353_BrandRelationaDDED.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808111051401_brandsUpdated.cs" />
+    <Compile Include="Migrations\201808111051401_brandsUpdated.Designer.cs">
+      <DependentUpon>201808111051401_brandsUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808141133505_cartUpdate1.cs" />
+    <Compile Include="Migrations\201808141133505_cartUpdate1.Designer.cs">
+      <DependentUpon>201808141133505_cartUpdate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808141137451_cartUpdate2.cs" />
+    <Compile Include="Migrations\201808141137451_cartUpdate2.Designer.cs">
+      <DependentUpon>201808141137451_cartUpdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808142043213_cartUpdate3.cs" />
+    <Compile Include="Migrations\201808142043213_cartUpdate3.Designer.cs">
+      <DependentUpon>201808142043213_cartUpdate3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -237,7 +263,7 @@
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Enums\ProjectEnums.cs" />
+    <Compile Include="Models\LocalCart.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderStatus.cs" />
@@ -1968,6 +1994,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Common\Fonts\Bootstrapfonts\" />
     <Folder Include="Common\Images\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
@@ -2123,6 +2150,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808111023353_BrandRelationaDDED.resx">
       <DependentUpon>201808111023353_BrandRelationaDDED.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808111051401_brandsUpdated.resx">
+      <DependentUpon>201808111051401_brandsUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808141133505_cartUpdate1.resx">
+      <DependentUpon>201808141133505_cartUpdate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808141137451_cartUpdate2.resx">
+      <DependentUpon>201808141137451_cartUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808142043213_cartUpdate3.resx">
+      <DependentUpon>201808142043213_cartUpdate3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

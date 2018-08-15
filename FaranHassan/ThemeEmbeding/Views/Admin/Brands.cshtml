@@ -27,14 +27,28 @@
                     </div>
                     <div class="box-body">
                         <form name="MyForm">
-                            <div>
-                                <md-input-container class="md-block" flex-gt-sm>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <md-input-container style="text-align:center" class="md-block col-md-10">
+
+                                    <md-select id="Select_Category" required ng-model="category.Id">
+                                        <label>Select Category</label>
+                                        <md-option ng-repeat="category in categories" value="{{category.Id}}">{{category.Type}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <div class="col-md-1"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <md-input-container class="md-block col-md-8" flex-gt-sm>
                                     <label style="text-align:center">Brand Name</label>
                                     <input required ng-model="BName">
                                 </md-input-container>
-                                <div class="row" style="text-align:center;padding-bottom:10px">
-                                    <md-button ng-disabled="MyForm.$invalid" ng-click="save()" class="md-raised md-primary">Add Brand</md-button>
-                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="row" style="text-align:center;padding-bottom:10px">
+                                <md-button ng-disabled="MyForm.$invalid" ng-click="save()" class="md-raised md-primary">Add Brand</md-button>
                             </div>
                         </form>
                     </div>
@@ -50,20 +64,32 @@
                         <h3 class="box-title">All Brands</h3>
                     </div>
                     <div class="box-body">
-                        <div>
-                            <table id="brands" class="table table-bordered table-responsive table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Brand Name
-                                        </th>
-                                        <th>
-                                            Delete
-                                        </th>
-                                    </tr>
-                                </thead>
-                            </table>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <md-input-container style="text-align:center" class="md-block col-md-8">
+
+                                <md-select id="Select_Category_products" ng-change="changetable()" ng-model="cate.Id">
+                                    <label>Search By Category</label>
+                                    <md-option ng-repeat="cate in categories" value="{{cate.Id}}">{{cate.Type}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div class="col-md-2"></div>
                         </div>
+                        <table id="brands" class="table table-bordered table-responsive table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Brand Name
+                                    </th>
+                                    <th>
+                                        Category Name
+                                    </th>
+                                    <th>
+                                        Delete
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                     <!-- /.box-body -->
                     <div style="background-color:#b8c7ce" class="box-footer"></div>
@@ -112,13 +138,16 @@
 
         $("#brands").DataTable({
             ajax: {
-                url: "/api/Brand/ViewAll",
+                url: "/api/Brand",
                 dataSrc: ""
             },
             columns: [
 
                 {
                     data: "Name"
+                },
+                {
+                    data: "Categories.Type"
                 },
                 {
                     data: "Id",
@@ -128,6 +157,16 @@
                     }
                 }
             ]
+        });
+
+        $http({
+            url: '/api/Category/',
+            method: 'GET'
+
+        }).then(function (resp) {
+            var Data = resp.data;
+            $scope.categories = Data;
+
         });
 
 
@@ -145,8 +184,8 @@
                 url: '/api/Brand/New',
                 method: 'POST',
                 data: {
-                    Name: $scope.BName
-
+                    Name: $scope.BName,
+                    CategoryId: $scope.category.Id
                 }
 
             }).then(function () {
@@ -165,6 +204,33 @@
                 $('#brands').DataTable().ajax.reload();
             });
 
+        };
+
+        $scope.changetable = function () {
+
+            $('#brands').DataTable().clear().destroy();
+            $("#brands").DataTable({
+                ajax: {
+                    url: "/api/Brand/" + $scope.cate.Id,
+                    dataSrc: ""
+                },
+                columns: [
+
+                    {
+                        data: "Name"
+                    },
+                    {
+                        data: "Categories.Type"
+                    },
+                    {
+                        data: "Id",
+                        render: function (data, type, Wholedata) {
+                            //return "<a ng-click='delete()' class='btn btn-dander'  >Remove</a>";
+                            return "<md-button type='button' id=" + data + " data-toggle='modal' data-target='#modal-danger' class='btn btn-danger'  >Remove</md-button>";
+                        }
+                    }
+                ]
+            });
         };
 
 

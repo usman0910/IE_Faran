@@ -37,9 +37,8 @@ namespace ThemeEmbeding.Controllers
 
             Helper.ProductExtension.ImageName = SaveImageNameAs.ToString();
 
-            //Json(SaveImageNameAs.ToString(), JsonRequestBehavior.AllowGet)
 
-            return "Test Completed";
+            return "";
 
         }
 

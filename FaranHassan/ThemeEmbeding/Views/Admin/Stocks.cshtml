@@ -45,7 +45,7 @@
                                 <div class="col-md-1"></div>
                                 <md-input-container style="text-align:center" class="md-block col-md-10">
 
-                                    <md-select id="Select_Product" @*ng-change="CheckClient()"*@ required ng-model="product.Id">
+                                    <md-select id="Select_Product" required ng-model="product.Id">
                                         <label>Select Product</label>
                                         <md-option ng-repeat="product in products" value="{{product.Id}}">{{product.Name}}</md-option>
                                     </md-select>

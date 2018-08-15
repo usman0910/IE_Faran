@@ -4,6 +4,10 @@ namespace ThemeEmbeding.Controllers
 {
     public class ShopController : Controller
     {
+        public ShopController()
+        {
+
+        }
         public ActionResult Index()
         {
             return View();
@@ -19,7 +23,7 @@ namespace ThemeEmbeding.Controllers
             return View();
         }
 
-        public ActionResult ProductDetail()
+        public ActionResult ProductDetail(int Id)
         {
             return View();
         }

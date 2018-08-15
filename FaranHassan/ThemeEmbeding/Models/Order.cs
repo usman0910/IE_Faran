@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ThemeEmbeding.Models
 {
@@ -6,11 +7,15 @@ namespace ThemeEmbeding.Models
     {
         public int Id { get; set; }
 
-        public Cart Cart { get; set; }
-        [ForeignKey("Cart")]
-        public int CartId { get; set; }
+        public Customer Customer { get; set; }
+        [ForeignKey("Customer")]
+        public int CustomerId { get; set; }
+
+        public string CartDetails { get; set; }
         public OrderStatus OrderStatus { get; set; }
         [ForeignKey("OrderStatus")]
         public int OrderStatusId { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

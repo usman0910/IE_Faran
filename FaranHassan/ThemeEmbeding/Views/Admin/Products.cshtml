@@ -35,7 +35,7 @@
                                     <div class="col-md-1"></div>
                                     <md-input-container style="text-align:center" class="md-block col-md-10">
 
-                                        <md-select id="Select_Category" @*ng-change="CheckClient()"*@ required ng-model="category.Id">
+                                        <md-select id="Select_Category" ng-change="CheckBrand()" required ng-model="category.Id">
                                             <label>Select Category</label>
                                             <md-option ng-repeat="category in categories" value="{{category.Id}}">{{category.Type}}</md-option>
                                         </md-select>
@@ -56,16 +56,24 @@
                                 <div class="row">
                                     <div class="col-md-2"></div>
                                     <md-input-container class="md-block col-md-8" flex-gt-sm>
-                                        <label style="text-align:center">Product Description</label>
-                                        <input required ng-model="PDescription">
+                                        <label style="text-align:center">Product Name</label>
+                                        <input required ng-model="PName">
                                     </md-input-container>
                                     <div class="col-md-2"></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2"></div>
                                     <md-input-container class="md-block col-md-8" flex-gt-sm>
-                                        <label style="text-align:center">Product Name</label>
-                                        <input required ng-model="PName">
+                                        <label style="text-align:center">Price</label>
+                                        <input required ng-model="PPrice">
+                                    </md-input-container>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <md-input-container class="md-block col-md-8" flex-gt-sm>
+                                        <label style="text-align:center">Product Description</label>
+                                        <input ng-model="PDescription">
                                     </md-input-container>
                                     <div class="col-md-2"></div>
                                 </div>
@@ -90,14 +98,6 @@
                                     <md-input-container class="md-block col-md-8" flex-gt-sm>
                                         <label style="text-align:center">Product Video Link</label>
                                         <input ng-model="PProductVideoLink">
-                                    </md-input-container>
-                                    <div class="col-md-2"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2"></div>
-                                    <md-input-container class="md-block col-md-8" flex-gt-sm>
-                                        <label style="text-align:center">Price</label>
-                                        <input ng-model="PPrice">
                                     </md-input-container>
                                     <div class="col-md-2"></div>
                                 </div>
@@ -279,6 +279,20 @@
             $scope.brands = Data;
 
         });
+
+        $scope.CheckBrand = function () {
+
+            $http({
+                url: "/api/Brand/" + $scope.category.Id,
+                method: 'GET'
+
+            }).then(function (resp) {
+                var Data = resp.data;
+                $scope.brands = Data;
+
+            });
+
+        };
 
         $('#products tbody').on('click', 'md-button', function () {
             $scope.Gac = this.id;
