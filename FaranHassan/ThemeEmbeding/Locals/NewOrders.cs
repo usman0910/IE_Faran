@@ -6,6 +6,7 @@ namespace ThemeEmbeding.Locals
 {
     public class NewOrders
     {
+        public int Id { get; set; }
         public int CustomerId { get; set; }
 
         public List<Products> Products { get; set; }

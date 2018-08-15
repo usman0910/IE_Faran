@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using ThemeEmbeding.Models;
+using ThemeEmbeding.ViewModels;
 
 namespace ThemeEmbeding.Controllers.api
 {
@@ -11,8 +12,13 @@ namespace ThemeEmbeding.Controllers.api
         [HttpGet]
         async public Task<IHttpActionResult> MyCart()
         {
-            var data = LocalCart.LocalProducts.ToList();
-            return Ok(data);
+
+            var cart = new CartProductsVM()
+            {
+                Products = LocalCart.LocalProducts.ToList(),
+                TotalPrice = LocalCart.LocalProducts.ToList().Sum(e => e.Price)
+            };
+            return Ok(cart);
         }
     }
 }

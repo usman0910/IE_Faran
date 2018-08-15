@@ -70,6 +70,9 @@ namespace ThemeEmbeding.Controllers
         {
             return View();
         }
-
+        public ActionResult OrderDetails()
+        {
+            return View();
+        }
     }
 }

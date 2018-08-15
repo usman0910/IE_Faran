@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutShop.cshtml";
 }
 
-<section id="content" ng-app="MyApp" ng-controller="AppCtrl">
+<section id="content" ng-controller="AppCtrl4">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -83,10 +83,9 @@
     </div>
 </section>
 <script>
+    
 
-    var AppMode = angular.module("MyApp", ['ngMaterial']);
-
-    AppMode.controller("AppCtrl", function ($scope, $http) {
+    AppMode1.controller("AppCtrl4", function ($scope, $http) {
 
         $scope.proId = location.pathname.split("/").pop();
         $http({

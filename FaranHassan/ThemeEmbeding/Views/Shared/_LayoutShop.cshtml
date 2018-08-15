@@ -8,10 +8,23 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     @Scripts.Render("~/bundles/Commonjquery")
     @Styles.Render("~/Content/ShopCSS")
+    <script>
+        var AppMode1 = angular.module("MyApp", ['ngMaterial']);
+
+        AppMode1.controller("AppCtrl", function ($scope, $http) {
+
+
+            $scope.MyCartCount = 9;
+
+
+        });
+    </script>
     <link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic%7CPT+Gudea:400,700,400italic%7CPT+Oswald:400,700,300" rel="stylesheet" id="googlefont">
 </head>
 
-<body >
+<body ng-app="MyApp">
+
+
     <div id="option-panel">
         <div id="option-panel-wrapper">
             <div id="option-panel-btn"></div>
@@ -234,7 +247,7 @@
         </div>
     </div>
     <div id="wrapper">
-        <header id="header">
+        <header id="header" ng-controller="AppCtrl">
             <div id="header-top">
                 <div class="container">
                     <div class="row">
@@ -277,7 +290,7 @@
                                 <div id="quick-access">
                                     <div class="dropdown-cart-menu-container pull-right">
                                         <div class="btn-group dropdown-cart">
-                                            <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown"><span class="cart-menu-icon"></span> 0 item(s) <span class="drop-price">- $0.00</span></button>
+                                            <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown"><span class="cart-menu-icon"></span> {{MyCartCount}} item(s) <span class="drop-price">- $0.00</span></button>
                                             <div class="dropdown-menu dropdown-cart-menu pull-right clearfix" role="menu">
                                                 <p class="dropdown-cart-description">Recently added item(s).</p>
                                                 <ul class="dropdown-cart-product-list">
@@ -425,8 +438,9 @@
         </footer>
     </div><a href="#" id="scroll-top" title="Scroll to Top"><i class="fa fa-angle-up"></i></a>
 
-
     @Scripts.Render("~/bundles/ShopJS")
     @RenderSection("scripts", required: false)
+
+
 </body>
 </html>

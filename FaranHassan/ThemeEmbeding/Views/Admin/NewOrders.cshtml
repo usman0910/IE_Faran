@@ -33,7 +33,7 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        Customer Id
+                                        Id
                                     </th>
                                     <th>
                                         Date
@@ -46,6 +46,124 @@
                                     </th>
                                 </tr>
                             </thead>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div style="background-color:#b8c7ce" class="box-footer"></div>
+                    <!-- /.box-footer-->
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div style="box-shadow:0 0px 11px rgba(0,0,0,0.3)" class="box">
+                    <div style="background-color:#b8c7ce" class="box-header with-border">
+                        <h3 class="box-title">Customer</h3>
+                    </div>
+                    <div class="box-body">
+                        <table id="customerData" class="table table-bordered table-responsive table-hover table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <td>
+                                        {{customer.Name}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <td>
+                                        {{customer.Email}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Country
+                                    </th>
+                                    <td>
+                                        {{customer.Country}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        City
+                                    </th>
+                                    <td>
+                                        {{customer.City}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        PostalCode
+                                    </th>
+                                    <td>
+                                        {{customer.PostalCode}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Address
+                                    </th>
+                                    <td>
+                                        {{customer.Address}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Contact #
+                                    </th>
+                                    <td>
+                                        {{customer.ContactNumber}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div style="background-color:#b8c7ce" class="box-footer"></div>
+                    <!-- /.box-footer-->
+                </div>
+            </div>
+
+            <div class="col-md-6">
+            </div>
+
+            <div class="col-md-6">
+                <div style="box-shadow:0 0px 11px rgba(0,0,0,0.3)" class="box">
+                    <div style="background-color:#b8c7ce" class="box-header with-border">
+                        <h3 class="box-title">Products Ordered</h3>
+                    </div>
+                    <div class="box-body">
+                        <table id="orderDetails" class="table table-bordered table-responsive table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Product Name
+                                    </th>
+                                    <th>
+                                        Price
+                                    </th>
+                                    <th>
+                                        Discription
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="p in products">
+                                    <td>
+                                        {{p.Name}}
+                                    </td>
+                                    <td>
+                                        {{p.Price}}
+                                    </td>
+                                    <td>
+                                        {{p.Description}}
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -69,11 +187,11 @@
                     <h4 class="modal-title">Delete ?</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to Delete this Stock ?</p>
+                    <p>Are you sure you want mark this order InProgress ?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">CLOSE</button>
-                    <button id="proceed" type="button" class="btn btn-outline" data-dismiss="modal">PROCEED TO DELETE</button>
+                    <button id="proceed" type="button" class="btn btn-outline" data-dismiss="modal">PROCEED TO INPROGRESS</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -89,6 +207,7 @@
     var AppMode = angular.module("MyApp", ['ngMaterial']);
 
     AppMode.controller("AppCtrl", function ($scope, $http) {
+        
 
         $("#newOrders").DataTable({
             ajax: {
@@ -98,7 +217,7 @@
             columns: [
 
                 {
-                    data: "CustomerId"
+                    data: "Id"
                 },
                 {
                     data: "Date"
@@ -106,27 +225,42 @@
                 {
                     data: "Id",
                     render: function (data, type, Wholedata) {
-                        //return "<a ng-click='delete()' class='btn btn-primary'  >Remove</a>";
-                        return "<md-button type='button' id=" + data + " data-toggle='modal' data-target='#modal-danger' class='btn btn-primary'  >Order Details</md-button>";
+
+                        return "<button type='button' id=" + Wholedata.Id+ " class='btn btn-primary'  >Order Details</button>";
                     }
                 },
                 {
                     data: "Id",
                     render: function (data, type, Wholedata) {
-                        //return "<a ng-click='delete()' class='btn btn-primary'  >Remove</a>";
-                        return "<md-button type='button' id=" + data + " data-toggle='modal' data-target='#modal-danger' class='btn btn-danger'  >In Progress</md-button>";
+                        return "<md-button type='button' id=" + Wholedata.Id + " data-toggle='modal' data-target='#modal-danger' class='btn btn-primary'  >Mark as InProgress</md-button>";
                     }
                 }
             ]
         });
 
 
+        $('#newOrders tbody').on('click', 'button', function () {
+            $http.get('/api/GetOrderDetails/' + this.id).then(function (resp) {
+                $scope.customer = resp.data.Customer;
+                $scope.products = resp.data.Products;
 
+            });
+        });
 
+        $('#newOrders tbody').on('click', 'md-button', function () {
+            $scope.Gac = this.id;
+        });
+        $("#proceed").on('click', function () {
+            $scope.delete($scope.Gac);
 
+        });
+        $scope.delete = function (d) {
+            $http.get('/api/UpdateStatus/' + d).then(function () {
 
+                $('#newOrders').DataTable().ajax.reload();
+            });
 
-
+        };
 
 
     });

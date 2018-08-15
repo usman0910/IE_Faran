@@ -32,6 +32,7 @@ namespace ThemeEmbeding.Controllers.api.Orders
 
                 var order = new NewOrders()
                 {
+                    Id = item.Id,
                     CustomerId = item.CustomerId,
                     Date = item.Date,
                     Products = dataDeSerilized,

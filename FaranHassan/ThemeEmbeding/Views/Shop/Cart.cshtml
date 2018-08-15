@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutShop.cshtml";
 }
 
-<section id="content" ng-app="MyApp" ng-controller="AppCtrl">
+<section id="content" ng-controller="AppCtrl1">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -54,7 +54,7 @@
                             <tfoot>
                                 <tr>
                                     <td>Total:</td>
-                                    <td>$440.50</td>
+                                    <td>Rs {{totalPrice}}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -69,9 +69,8 @@
 
 <script>
 
-    var AppMode = angular.module("MyApp", ['ngMaterial']);
 
-    AppMode.controller("AppCtrl", function ($scope, $http) {
+    AppMode1.controller("AppCtrl1", function ($scope, $http) {
 
 
         $http({
@@ -80,7 +79,8 @@
 
         }).then(function (resp) {
             var Data = resp.data;
-            $scope.cartProducts = Data;
+            $scope.cartProducts = Data.Products;
+            $scope.totalPrice = Data.TotalPrice;
         });
 
 
@@ -99,7 +99,8 @@
 
                 }).then(function (resp) {
                     var Data = resp.data;
-                    $scope.cartProducts = Data;
+                    $scope.cartProducts = Data.Products;
+                    $scope.totalPrice = Data.TotalPrice;
                 });
 
             });

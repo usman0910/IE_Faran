@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutShop.cshtml";
 }
 
-<section id="content" ng-app="MyApp" ng-controller="AppCtrl">
+<section id="content" ng-controller="AppCtrl2">
     <br />
     <br />
     <div class="container">
@@ -101,7 +101,7 @@
                                                 <tfoot>
                                                     <tr>
                                                         <td>Total:</td>
-                                                        <td>$440.50</td>
+                                                        <td>Rs {{totalPrice}}</td>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -109,7 +109,7 @@
                                     </div>
                                     <div class="lg-margin"></div>
                                     <div class="text-right">
-                                        <input ng-disabled="MyForm.$invalid" ng-click="CheckOut()" class="btn btn-custom-2" value="CONFIRM ORDER">
+                                        <input type="button" ng-disabled="MyForm.$invalid" ng-click="CheckOut()" class="btn btn-custom-2" value="CONFIRM ORDER">
                                     </div>
                                 </div>
                             </div>
@@ -122,10 +122,9 @@
     </div>
 </section>
 <script>
+    
 
-    var AppMode = angular.module("MyApp", ['ngMaterial']);
-
-    AppMode.controller("AppCtrl", function ($scope, $http) {
+    AppMode1.controller("AppCtrl2", function ($scope, $http) {
 
 
         $http({
@@ -134,7 +133,8 @@
 
         }).then(function (resp) {
             var Data = resp.data;
-            $scope.cartProducts = Data;
+            $scope.cartProducts = Data.Products;
+            $scope.totalPrice = Data.TotalPrice;
         });
 
 
@@ -152,7 +152,8 @@
 
                 }).then(function (resp) {
                     var Data = resp.data;
-                    $scope.cartProducts = Data;
+                    $scope.cartProducts = Data.Products;
+                    $scope.totalPrice = Data.TotalPrice;
                 });
 
             });
@@ -185,7 +186,8 @@
                 $scope.CAddress = "";
                 $scope.CEmail = "";
                 $scope.CContactNumber = "";
-
+                $scope.cartProducts = null;
+                $scope.totalPrice = 0;
                 alert("Order Placed Successfully");
 
             });
